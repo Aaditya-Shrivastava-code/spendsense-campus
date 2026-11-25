@@ -86,6 +86,8 @@
   const moneyExact = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(Number(n)||0);
   const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let state = loadState();
+  state.profile.name = state.profile.name || 'Aaditya Shrivastava';
+state.profile.scholar = state.profile.scholar || '26U020113';
   function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){const x=JSON.parse(raw);return {profile:{name:x.profile?.name||'',scholar:x.profile?.scholar||''},budget:Number(x.budget)||6000,transactions:Array.isArray(x.transactions)?x.transactions:[]}}}catch(e){console.warn('Could not read saved data',e)}return {profile:{name:'',scholar:''},budget:6000,transactions:[]}}
   function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){toast('Could not save data. Browser storage may be full.')}}
   function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2400)}
